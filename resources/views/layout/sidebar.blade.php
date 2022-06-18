@@ -5,7 +5,7 @@
 
         <div class="navbar-brand-box">
             <a href="#" class="logo">
-                <i class="mdi mdi-bus"></i>
+                <i class="mdi mdi-desktop-mac"></i>
                 <span>SPK UKT</span>
             </a>
         </div>
@@ -17,7 +17,7 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="#" class="waves-effect">
+                    <a href="{{ route('dashboard.index') }}" class="waves-effect">
                         <i class="mdi mdi-home-analytics"></i>
                         <span class="badge badge-pill badge-primary float-right">
                         </span>
@@ -29,9 +29,18 @@
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i
                             class="mdi mdi-database"></i><span>Data Master</span></a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Mahasiswa</a></li>
+                        <li><a href="{{ route('mahasiswa.index') }}">Mahasiswa</a></li>
                         <li><a href="#">Kriteria</a></li>
                     </ul>
+                </li>
+
+                <li>
+                    <a href="#" class="waves-effect">
+                        <i class="mdi mdi-file-excel"></i>
+                        <span class="badge badge-pill badge-primary float-right">
+                        </span>
+                        <span>Perhitungan</span>
+                    </a>
                 </li>
 
             </ul>

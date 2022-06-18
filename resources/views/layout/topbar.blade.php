@@ -115,7 +115,7 @@
                         <span>
                         </span>
                     </a>
-                    <form action="#" method="post" class="d-inline">
+                    <form action="{{ route('auth.logout') }}" method="post" class="d-inline">
                         @csrf
                         <input type="submit" class="dropdown-item d-flex align-items-center justify-content-between"
                             value="Log Out">

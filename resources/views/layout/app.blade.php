@@ -26,6 +26,14 @@
     <link href="{{asset('template/assets/plugins/datatables/buttons.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('template/assets/plugins/datatables/select.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
 
+    <style>
+        .main-content{
+            background-image: url("{{ url('landing/images/bg3.png') }}");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+    </style>
 </head>
 
 <body >
@@ -130,7 +138,7 @@
                     <div class="text-sm-right d-none d-sm-block">
                         Design & Develop by
                         <a href="https://jibrasoft.id">
-                            Jibrasoft
+                            Mirwansyah
                         </a>
                     </div>
                 </div>
