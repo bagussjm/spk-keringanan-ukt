@@ -17,7 +17,7 @@ class CreateGolonganUktsTable extends Migration
             $table->timestamps();
             $table->foreignId('id_kriteria')->comment('relasi ke tabel kriteria');
             $table->foreignId('id_mahasiswa')->comment('relasi ke tabel mahasiswa');
-            $table->enum('keterangan_golongan_ukt', ['2', '3', '4', '5'])->default('1');
+            $table->enum('keterangan_golongan_ukt', ['2', '3', '4', '5'])->default('2');
             $table->integer('nilai_golongan_ukt')->default(0);
             $table->id();
         });
