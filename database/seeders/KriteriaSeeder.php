@@ -18,7 +18,7 @@ class KriteriaSeeder extends Seeder
             [
                 'nama_kriteria' => 'Terdampak Covid 19',
                 'jenis_kriteria' => 'benefit',
-                'bobot' => 0,3,
+                'bobot' => 0.3,
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d'),
             ],
