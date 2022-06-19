@@ -63,29 +63,29 @@
                         @yield('page-tool','')
                     </div>
                 </div>
-                @if(\Illuminate\Support\Facades\Session::has('alert'))
+                @if(\Illuminate\Support\Facades\Session::has('success'))
                     <div
                         class="alert alert-success bg-success alert-dismissible fade show animated bounceIn text-white"
                         role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true" class="text-white">×</span>
                         </button>
-                        <strong><i class="ion ion-md-checkmark-circle"></i> BERHASIL
-                        </strong> {{ \Illuminate\Support\Facades\Session::get('alert','berhasil menjalankan operasi') }}
+                        <strong><i class="ion ion-md-checkmark-circle"></i>
+                        </strong> {{ \Illuminate\Support\Facades\Session::get('success') }}
                     </div>
                 @endif
-                @if(\Illuminate\Support\Facades\Session::has('alert_update'))
+                @if(\Illuminate\Support\Facades\Session::has('warning'))
                     <div
                         class="alert alert-warning bg-warning alert-dismissible fade show animated bounceIn text-white"
                         role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true" class="text-white">×</span>
                         </button>
-                        <strong><i class="ion ion-md-checkmark-circle"></i> BERHASIL
-                        </strong> {{ \Illuminate\Support\Facades\Session::get('alert_update','berhasil menjalankan operasi') }}
+                        <strong><i class="ion ion-md-checkmark-circle"></i>
+                        </strong> {{ \Illuminate\Support\Facades\Session::get('warning') }}
                     </div>
                 @endif
-                @if(\Illuminate\Support\Facades\Session::has('alert_delete'))
+                @if(\Illuminate\Support\Facades\Session::has('error'))
                     <div
                         class="alert alert-danger bg-danger alert-dismissible fade show animated bounceIn text-white"
                         role="alert">
@@ -93,7 +93,7 @@
                             <span aria-hidden="true" class="text-white">×</span>
                         </button>
                         <strong><i class="ion ion-md-checkmark-circle"></i>
-                        </strong> {{ \Illuminate\Support\Facades\Session::get('alert_delete','berhasil menjalankan operasi') }}
+                        </strong> {{ \Illuminate\Support\Facades\Session::get('error') }}
                     </div>
                 @endif
                 <!-- end page title -->
@@ -160,6 +160,7 @@
 <script src="{{asset('template/assets/js/metismenu.min.js')}}"></script>
 <script src="{{asset('template/assets/js/waves.js')}}"></script>
 <script src="{{asset('template/assets/js/simplebar.min.js')}}"></script>
+<script src="{{asset('/js/simple.money.format.js')}}"></script>
 
 <!-- third party js -->
 <script src="{{asset('template/assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -190,7 +191,9 @@
 <script src="{{asset('template/assets/js/theme.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        toolTips();
+
+        $('.money').simpleMoneyFormat();
+        // toolTips();
 
         function toolTips() {
             setTimeout(showDesktopToolTip,2000);
