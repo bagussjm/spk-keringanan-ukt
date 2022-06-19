@@ -18,19 +18,27 @@ class PenghasilanOrangtua extends Model
         'nilai_penghasilan',
     ];
 
+    protected $appends = [
+        'formatted_penghasilan'
+    ];
 
     public function getFuzzyValueAttribute()
     {
-        if ($this->keterangan_terdampak){
-            if ($this->keterangan_terdampak < 2500000){
+        if ($this->keterangan_penghasilan){
+            if ($this->keterangan_penghasilan < 2500000){
                 return 40;
-            }elseif ($this->keterangan_terdampak >= 2501000 && $this->keterangan_terdampak < 5000000){
+            }elseif ($this->keterangan_penghasilan >= 2501000 && $this->keterangan_penghasilan < 5000000){
                 return 30;
-            }elseif($this->keterangan_terdampak > 5000000){
+            }elseif($this->keterangan_penghasilan > 5000000){
                 return 20;
             }
         }
         return 0;
+    }
+
+    public function getFormattedPenghasilanAttribute()
+    {
+        return "Rp " . number_format($this->keterangan_penghasilan,2,',','.');
     }
 
     public static function setFuzzyValueAttribute($value)

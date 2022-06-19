@@ -2,7 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GolonganUkt;
+use App\Models\JumlahTanggungan;
+use App\Models\KeteranganTerdampakCovid;
+use App\Models\Kriteria;
+use App\Models\Mahasiswa;
+use App\Models\PenghasilanOrangtua;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class MahasiswaController extends Controller
 {
@@ -13,7 +22,16 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-       return view('mahasiswa.index');
+        $mahasiswa = Mahasiswa::with([
+            'keteranganTerdampak',
+            'penghasilanOrangtua',
+            'golonganUkt',
+            'jumlahTanggungan'
+        ])->get();
+
+//        return response()->json($mahasiswa);
+
+       return view('mahasiswa.index', compact('mahasiswa'));
     }
 
     /**
@@ -23,7 +41,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('mahasiswa.create');
     }
 
     /**
@@ -34,7 +52,72 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $validator = Validator::make($request->all(),[
+                'nama' => 'required',
+                'nim' => 'required',
+                'penghasilan_orangtua' => 'required',
+                'golongan_ukt' => 'required',
+                'tanggungan_orangtua' => 'required',
+                'keterangan_terdampak_covid' => 'required'
+            ]);
+
+            if($validator->fails())
+            {
+                $messages = $validator->getMessageBag();
+
+                return redirect()->back()->with('error', $messages->first());
+            }
+
+            $kriteria = Kriteria::all();
+            $kriteriaTerdampakCovid = collect($kriteria)->where('nama_kriteria', '=','Terdampak Covid 19')->first();
+            $kriteriaPenghasilanOrangtua = collect($kriteria)->where('nama_kriteria', '=','Penghasilan Orangtua')->first();
+            $kriteriaJumlahTanggungan = collect($kriteria)->where('nama_kriteria', '=','Jumlah Tanggungan')->first();
+            $kriteriaGolonganUkt = collect($kriteria)->where('nama_kriteria', '=','Golongan UKT')->first();
+
+            $createdMhs = Mahasiswa::create([
+                'nama_mhs' => $request->nama,
+                'nim_mhs' => $request->nim,
+                'keterangan_mhs' => $request->has('keterangan') ? $request->keterangan : ''
+            ]);
+
+            KeteranganTerdampakCovid::create([
+                'id_kriteria' => $kriteriaTerdampakCovid ? $kriteriaTerdampakCovid['id'] : 0,
+                'id_mahasiswa' => $createdMhs->id,
+                'keterangan_terdampak' => $request->keterangan_terdampak_covid,
+                'nilai_terdampak' => KeteranganTerdampakCovid::setFuzzyValueAttribute($request->keterangan_terdampak_covid),
+            ]);
+
+            PenghasilanOrangtua::create([
+                'id_kriteria' => $kriteriaPenghasilanOrangtua ? $kriteriaPenghasilanOrangtua['id'] : 0,
+                'id_mahasiswa' => $createdMhs->id,
+                'keterangan_penghasilan' => (integer)str_replace(',','', $request->penghasilan_orangtua),
+                'nilai_penghasilan' => PenghasilanOrangtua::setFuzzyValueAttribute((integer)str_replace(',','', $request->penghasilan_orangtua)),
+            ]);
+
+            JumlahTanggungan::create([
+                'id_kriteria' => $kriteriaJumlahTanggungan ? $kriteriaJumlahTanggungan['id'] : 0,
+                'id_mahasiswa' => $createdMhs->id,
+                'keterangan_jumlah_tanggungan' => $request->tanggungan_orangtua,
+                'nilai_tanggungan' => JumlahTanggungan::setFuzzyValueAttribute((integer)$request->tanggungan_orangtua),
+            ]);
+
+            GolonganUkt::create([
+                'id_kriteria' => $kriteriaGolonganUkt ? $kriteriaGolonganUkt['id'] : 0,
+                'id_mahasiswa' => $createdMhs->id,
+                'keterangan_golongan_ukt' =>  $request->golongan_ukt,
+                'nilai_golongan_ukt' => GolonganUkt::setFuzzyValueAttribute((integer)$request->golongan_ukt),
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('mahasiswa.index')->with('success', 'Berhasil Menambah Data Mahasiswa');
+        }catch (\Exception $exception){
+            Log::error($exception->getMessage());
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Ada Masalah Saat Menambah Data Mahasiswa');
+        }
     }
 
     /**

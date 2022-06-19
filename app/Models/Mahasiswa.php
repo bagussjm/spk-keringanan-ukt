@@ -17,6 +17,10 @@ class Mahasiswa extends Model
         'keterangan_mhs',
     ];
 
+    protected $attributes = [
+        'keterangan_mhs' => ''
+    ];
+
     public function keteranganTerdampak()
     {
         return $this->hasOne(KeteranganTerdampakCovid::class, 'id_mahasiswa', 'id')->withDefault([
@@ -45,7 +49,7 @@ class Mahasiswa extends Model
 
     public function golonganUkt()
     {
-        return $this->hasOne(GolonganUkt::class,'id_mahasiswa',' id')->withDefault([
+        return $this->hasOne(GolonganUkt::class, 'id_mahasiswa', 'id')->withDefault([
             'id' => null,
             'id_kriteria' => null,
             'id_mahasiswa' => null,
