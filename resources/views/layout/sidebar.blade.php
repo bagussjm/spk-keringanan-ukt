@@ -30,7 +30,7 @@
                             class="mdi mdi-database"></i><span>Data Master</span></a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('mahasiswa.index') }}">Mahasiswa</a></li>
-                        <li><a href="#">Kriteria</a></li>
+                        <li><a href="{{ route('kriteria.index') }}">Kriteria</a></li>
                     </ul>
                 </li>
 

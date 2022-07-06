@@ -5,6 +5,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerhitunganController;
+use App\Http\Controllers\KriteriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,6 @@ Route::post('/logout', [AuthController::class,'logout'])->name('auth.logout');
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.index');
 
 Route::resource('/mahasiswa', MahasiswaController::class);
+Route::get('/kriteria', [KriteriaController::class, 'index'])->name('kriteria.index');
 
 Route::get('/perhitungan', [PerhitunganController::class, 'index'])->name('perhitungan.index');
