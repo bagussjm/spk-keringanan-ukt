@@ -11,6 +11,8 @@ class GolonganUkt extends Model
 
     protected $table = 'golongan_ukt';
 
+    public static $criteriaWeight = 0.2;
+
     protected $fillable = [
         'id_kriteria',
         'id_mahasiswa',

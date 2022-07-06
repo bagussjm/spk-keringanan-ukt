@@ -18,6 +18,8 @@ class KeteranganTerdampakCovid extends Model
         'nilai_terdampak',
     ];
 
+    public static $criteriaWeight = 0.3;
+
     public static function getTerdampakOptions()
     {
         return ['PHK', 'Orangtua Meninggal', 'Penurunan Pendapatan'];

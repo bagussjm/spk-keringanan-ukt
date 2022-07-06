@@ -35,7 +35,7 @@
                 </li>
 
                 <li>
-                    <a href="#" class="waves-effect">
+                    <a href="{{ route('perhitungan.index') }}" class="waves-effect">
                         <i class="mdi mdi-file-excel"></i>
                         <span class="badge badge-pill badge-primary float-right">
                         </span>

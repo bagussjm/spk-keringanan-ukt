@@ -70,6 +70,7 @@ class MahasiswaController extends Controller
                 return redirect()->back()->with('error', $messages->first());
             }
 
+
             $kriteria = Kriteria::all();
             $kriteriaTerdampakCovid = collect($kriteria)->where('nama_kriteria', '=','Terdampak Covid 19')->first();
             $kriteriaPenghasilanOrangtua = collect($kriteria)->where('nama_kriteria', '=','Penghasilan Orangtua')->first();
@@ -89,11 +90,13 @@ class MahasiswaController extends Controller
                 'nilai_terdampak' => KeteranganTerdampakCovid::setFuzzyValueAttribute($request->keterangan_terdampak_covid),
             ]);
 
+            $penghasilanOrangtua = (double)str_replace(',','', $request->penghasilan_orangtua);
+
             PenghasilanOrangtua::create([
                 'id_kriteria' => $kriteriaPenghasilanOrangtua ? $kriteriaPenghasilanOrangtua['id'] : 0,
                 'id_mahasiswa' => $createdMhs->id,
-                'keterangan_penghasilan' => (integer)str_replace(',','', $request->penghasilan_orangtua),
-                'nilai_penghasilan' => PenghasilanOrangtua::setFuzzyValueAttribute((integer)str_replace(',','', $request->penghasilan_orangtua)),
+                'keterangan_penghasilan' => (int)round($penghasilanOrangtua),
+                'nilai_penghasilan' => PenghasilanOrangtua::setFuzzyValueAttribute((int)round($penghasilanOrangtua)),
             ]);
 
             JumlahTanggungan::create([

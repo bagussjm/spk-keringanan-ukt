@@ -11,6 +11,8 @@ class PenghasilanOrangtua extends Model
 
     protected $table = 'penghasilan_orangtua';
 
+    public static $criteriaWeight = 0.25;
+
     protected $fillable = [
         'id_kriteria',
         'id_mahasiswa',
@@ -25,11 +27,11 @@ class PenghasilanOrangtua extends Model
     public function getFuzzyValueAttribute()
     {
         if ($this->keterangan_penghasilan){
-            if ($this->keterangan_penghasilan < 2500000){
+            if ($this->keterangan_penghasilan <= 2500000){
                 return 40;
-            }elseif ($this->keterangan_penghasilan >= 2501000 && $this->keterangan_penghasilan < 5000000){
+            }elseif ($this->keterangan_penghasilan >= 2501000 && $this->keterangan_penghasilan <= 5000000){
                 return 30;
-            }elseif($this->keterangan_penghasilan > 5000000){
+            }elseif($this->keterangan_penghasilan >= 5001000){
                 return 20;
             }
         }
@@ -43,12 +45,13 @@ class PenghasilanOrangtua extends Model
 
     public static function setFuzzyValueAttribute($value)
     {
+
         if ($value){
-            if ($value < 2500000){
+            if ($value <= 2500000){
                 return 40;
-            }elseif ($value >= 2501000 && $value < 5000000){
+            }elseif ($value >= 2501000 && $value <= 5000000){
                 return 30;
-            }elseif($value > 5000000){
+            }elseif($value >= 5001000){
                 return 20;
             }
         }

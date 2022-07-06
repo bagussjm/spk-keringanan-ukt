@@ -11,6 +11,8 @@ class JumlahTanggungan extends Model
 
     protected $table = 'jumlah_tanggungan';
 
+    public static $criteriaWeight = 0.25;
+
     protected $fillable = [
         'id_kriteria',
         'id_mahasiswa',
