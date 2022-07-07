@@ -43,7 +43,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('perhitungan.index') }}">Keseluruhan</a></li>
-                        <li><a href="#">Pilihan</a></li>
+                        <li><a href="{{ route('perhitungan.pilihan') }}">Pilihan</a></li>
                     </ul>
                 </li>
 
