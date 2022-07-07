@@ -26,8 +26,10 @@
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect"><i
-                            class="mdi mdi-database"></i><span>Data Master</span></a>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-database"></i>
+                        <span>Data Master</span>
+                    </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('mahasiswa.index') }}">Mahasiswa</a></li>
                         <li><a href="{{ route('kriteria.index') }}">Kriteria</a></li>
@@ -35,12 +37,14 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('perhitungan.index') }}" class="waves-effect">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="mdi mdi-file-excel"></i>
-                        <span class="badge badge-pill badge-primary float-right">
-                        </span>
                         <span>Perhitungan</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('perhitungan.index') }}">Keseluruhan</a></li>
+                        <li><a href="#">Pilihan</a></li>
+                    </ul>
                 </li>
 
             </ul>
