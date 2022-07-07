@@ -30,4 +30,4 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 Route::resource('/mahasiswa', MahasiswaController::class);
 Route::get('/kriteria', [KriteriaController::class, 'index'])->name('kriteria.index');
 
-Route::get('/perhitungan', [PerhitunganController::class, 'index'])->name('perhitungan.index');
+Route::get('/perhitungan-keseluruhan', [PerhitunganController::class, 'index'])->name('perhitungan.index');
