@@ -28,9 +28,9 @@ class KeteranganTerdampakCovid extends Model
     public function getFuzzyValueAttribute()
     {
         $valueRule = [
-            'Orangtua Meninggal' => 50,
-            'PHK' => 40,
-            'Penurunan Pendapatan' => 30
+            'Orangtua Meninggal' => 3,
+            'PHK' => 2,
+            'Penurunan Pendapatan' => 1
         ];
 
         return $valueRule[$this->keterangan_terdampak];
@@ -39,9 +39,9 @@ class KeteranganTerdampakCovid extends Model
     public static function setFuzzyValueAttribute($value)
     {
         $valueRule = [
-            'Orangtua Meninggal' => 50,
-            'PHK' => 40,
-            'Penurunan Pendapatan' => 30
+            'Orangtua Meninggal' => 3,
+            'PHK' => 2,
+            'Penurunan Pendapatan' => 1
         ];
 
         return $valueRule[$value];
