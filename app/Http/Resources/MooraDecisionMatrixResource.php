@@ -69,10 +69,10 @@ class MooraDecisionMatrixResource extends JsonResource
         $k4DecisionMatrixValue = self::criteriaDecisionMatrixValue($criteriaFuzzyValue, 'k4_value');
 
         foreach (collect($criteriaFuzzyValue)->all() as $fuzzyValue) {
-            $fuzzyValue['k1_normalized_value'] = $fuzzyValue['k1_value']/$k1DecisionMatrixValue;
-            $fuzzyValue['k2_normalized_value'] = $fuzzyValue['k2_value']/$k2DecisionMatrixValue;
-            $fuzzyValue['k3_normalized_value'] = $fuzzyValue['k3_value']/$k3DecisionMatrixValue;
-            $fuzzyValue['k4_normalized_value'] = $fuzzyValue['k4_value']/$k4DecisionMatrixValue;
+            $fuzzyValue['k1_normalized_value'] = $k1DecisionMatrixValue ? $fuzzyValue['k1_value']/$k1DecisionMatrixValue : 0;
+            $fuzzyValue['k2_normalized_value'] = $k2DecisionMatrixValue ? $fuzzyValue['k2_value']/$k2DecisionMatrixValue : 0;
+            $fuzzyValue['k3_normalized_value'] = $k3DecisionMatrixValue ? $fuzzyValue['k3_value']/$k3DecisionMatrixValue : 0;
+            $fuzzyValue['k4_normalized_value'] = $k4DecisionMatrixValue ? $fuzzyValue['k4_value']/$k4DecisionMatrixValue : 0;
             $normalizedDecisionMatrix[] = $fuzzyValue;
         }
 
