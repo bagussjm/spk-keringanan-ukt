@@ -72,10 +72,10 @@ class MahasiswaController extends Controller
 
 
             $kriteria = Kriteria::all();
-            $kriteriaTerdampakCovid = collect($kriteria)->where('nama_kriteria', '=','Terdampak Covid 19')->first();
-            $kriteriaPenghasilanOrangtua = collect($kriteria)->where('nama_kriteria', '=','Penghasilan Orangtua')->first();
-            $kriteriaJumlahTanggungan = collect($kriteria)->where('nama_kriteria', '=','Jumlah Tanggungan')->first();
-            $kriteriaGolonganUkt = collect($kriteria)->where('nama_kriteria', '=','Golongan UKT')->first();
+            $kriteriaTerdampakCovid = $kriteria->where('nama_kriteria', '=','Terdampak Covid 19')->first();
+            $kriteriaPenghasilanOrangtua = $kriteria->where('nama_kriteria', '=','Penghasilan Orangtua')->first();
+            $kriteriaJumlahTanggungan = $kriteria->where('nama_kriteria', '=','Jumlah Tanggungan')->first();
+            $kriteriaGolonganUkt = $kriteria->where('nama_kriteria', '=','Golongan UKT')->first();
 
             $createdMhs = Mahasiswa::create([
                 'nama_mhs' => $request->nama,
@@ -96,21 +96,21 @@ class MahasiswaController extends Controller
                 'id_kriteria' => $kriteriaPenghasilanOrangtua ? $kriteriaPenghasilanOrangtua['id'] : 0,
                 'id_mahasiswa' => $createdMhs->id,
                 'keterangan_penghasilan' => (int)round($penghasilanOrangtua),
-                'nilai_penghasilan' => PenghasilanOrangtua::setFuzzyValueAttribute((int)round($penghasilanOrangtua)),
+                'nilai_penghasilan' => (int)round($penghasilanOrangtua),
             ]);
 
             JumlahTanggungan::create([
                 'id_kriteria' => $kriteriaJumlahTanggungan ? $kriteriaJumlahTanggungan['id'] : 0,
                 'id_mahasiswa' => $createdMhs->id,
                 'keterangan_jumlah_tanggungan' => $request->tanggungan_orangtua,
-                'nilai_tanggungan' => JumlahTanggungan::setFuzzyValueAttribute((integer)$request->tanggungan_orangtua),
+                'nilai_tanggungan' => $request->tanggungan_orangtua,
             ]);
 
             GolonganUkt::create([
                 'id_kriteria' => $kriteriaGolonganUkt ? $kriteriaGolonganUkt['id'] : 0,
                 'id_mahasiswa' => $createdMhs->id,
                 'keterangan_golongan_ukt' =>  $request->golongan_ukt,
-                'nilai_golongan_ukt' => GolonganUkt::setFuzzyValueAttribute((integer)$request->golongan_ukt),
+                'nilai_golongan_ukt' => $request->golongan_ukt,
             ]);
 
             DB::commit();
